@@ -1,0 +1,304 @@
+{
+  "tags": [
+    {
+      "id": "sweating",
+      "en": "Sweating",
+      "hi": "पसीना आ रहा है"
+    },
+    {
+      "id": "pain_arm_jaw",
+      "en": "Pain going to arm, jaw or back",
+      "hi": "दर्द हाथ, जबड़े या पीठ तक जा रहा है"
+    },
+    {
+      "id": "nausea",
+      "en": "Feeling sick / nausea",
+      "hi": "जी मिचलाना"
+    },
+    {
+      "id": "breathless_rest",
+      "en": "Breathless even at rest",
+      "hi": "आराम में भी साँस फूल रही है"
+    },
+    {
+      "id": "cant_speak_full",
+      "en": "Cannot speak full sentences",
+      "hi": "पूरा वाक्य नहीं बोल पा रहे"
+    },
+    {
+      "id": "blue_lips",
+      "en": "Blue lips",
+      "hi": "होंठ नीले पड़ गए"
+    },
+    {
+      "id": "neck_stiffness",
+      "en": "Stiff neck",
+      "hi": "गर्दन अकड़ गई है"
+    },
+    {
+      "id": "confusion",
+      "en": "Confused or not making sense",
+      "hi": "भ्रम / होश में गड़बड़"
+    },
+    {
+      "id": "drowsy",
+      "en": "Very drowsy, hard to wake",
+      "hi": "बहुत नींद, उठाने पर नहीं उठ रहे"
+    },
+    {
+      "id": "persistent_vomiting",
+      "en": "Vomiting again and again",
+      "hi": "बार-बार उल्टी"
+    },
+    {
+      "id": "severe_abd_pain",
+      "en": "Severe stomach pain",
+      "hi": "पेट में तेज़ दर्द"
+    },
+    {
+      "id": "rigid_abdomen",
+      "en": "Stomach hard like a board",
+      "hi": "पेट सख़्त हो गया"
+    },
+    {
+      "id": "bleeding_gums_nose",
+      "en": "Bleeding from gums or nose",
+      "hi": "मसूड़ों या नाक से खून"
+    },
+    {
+      "id": "heavy_bleeding",
+      "en": "Heavy bleeding that will not stop",
+      "hi": "तेज़ खून जो रुक नहीं रहा"
+    },
+    {
+      "id": "vomiting_blood",
+      "en": "Vomiting blood",
+      "hi": "खून की उल्टी"
+    },
+    {
+      "id": "black_stool",
+      "en": "Black tarry stools",
+      "hi": "काला मल"
+    },
+    {
+      "id": "head_injury",
+      "en": "Head injury",
+      "hi": "सिर में चोट"
+    },
+    {
+      "id": "vaginal_bleeding",
+      "en": "Vaginal bleeding",
+      "hi": "योनि से रक्तस्राव"
+    },
+    {
+      "id": "reduced_fetal_movement",
+      "en": "Baby moving less",
+      "hi": "बच्चा कम हिल रहा है"
+    },
+    {
+      "id": "severe_headache",
+      "en": "Very severe headache",
+      "hi": "बहुत तेज़ सिर दर्द"
+    },
+    {
+      "id": "visual_disturbance",
+      "en": "Blurred vision or flashing lights",
+      "hi": "धुंधला दिखना / आँखों के आगे चमक"
+    },
+    {
+      "id": "epigastric_pain",
+      "en": "Pain in upper stomach",
+      "hi": "पेट के ऊपरी हिस्से में दर्द"
+    },
+    {
+      "id": "not_feeding",
+      "en": "Child not drinking or feeding",
+      "hi": "बच्चा पी / खा नहीं रहा"
+    },
+    {
+      "id": "lethargic",
+      "en": "Child very sleepy or limp",
+      "hi": "बच्चा बहुत सुस्त / ढीला"
+    },
+    {
+      "id": "chest_indrawing",
+      "en": "Chest pulling in with breathing",
+      "hi": "साँस लेते समय छाती धँस रही है"
+    },
+    {
+      "id": "fast_breathing",
+      "en": "Fast breathing",
+      "hi": "तेज़ साँस"
+    },
+    {
+      "id": "shaky_sweaty",
+      "en": "Shaky and sweaty",
+      "hi": "काँपना और पसीना"
+    },
+    {
+      "id": "fast_deep_breathing",
+      "en": "Fast deep breathing with vomiting",
+      "hi": "तेज़ गहरी साँस और उल्टी"
+    },
+    {
+      "id": "palpitations",
+      "en": "Heart racing or fluttering",
+      "hi": "धड़कन तेज़ / अनियमित"
+    },
+    {
+      "id": "lip_face_swelling",
+      "en": "Swelling of lips, face or tongue",
+      "hi": "होंठ, चेहरा या जीभ में सूजन"
+    },
+    {
+      "id": "hot_dry_skin",
+      "en": "Very hot, dry skin",
+      "hi": "बहुत गरम सूखी त्वचा"
+    },
+    {
+      "id": "self_harm_thoughts",
+      "en": "Thoughts of harming self",
+      "hi": "खुद को नुकसान पहुँचाने के विचार"
+    },
+    {
+      "id": "eye_pain",
+      "en": "Eye pain",
+      "hi": "आँख में दर्द"
+    },
+    {
+      "id": "vision_change",
+      "en": "Vision blurred or reduced",
+      "hi": "नज़र धुंधली / कम"
+    },
+    {
+      "id": "light_sensitivity",
+      "en": "Eye hurts in light",
+      "hi": "रोशनी से आँख में दर्द"
+    },
+    {
+      "id": "fever_3_days",
+      "en": "Fever for 3 days or more",
+      "hi": "3 दिन या अधिक से बुखार"
+    },
+    {
+      "id": "body_ache",
+      "en": "Severe body ache",
+      "hi": "तेज़ बदन दर्द"
+    },
+    {
+      "id": "reduced_urine",
+      "en": "Passing little urine / dizzy",
+      "hi": "पेशाब कम / चक्कर"
+    },
+    {
+      "id": "haemoptysis",
+      "en": "Coughing blood",
+      "hi": "खाँसी में खून"
+    },
+    {
+      "id": "weight_loss",
+      "en": "Weight loss without trying",
+      "hi": "बिना कारण वजन कम"
+    },
+    {
+      "id": "work_stone_mining",
+      "en": "Works in stone / mining / sandstone",
+      "hi": "पत्थर / खदान / बलुआ पत्थर में काम"
+    },
+    {
+      "id": "pesticide_exposure",
+      "en": "Pesticide or chemical exposure",
+      "hi": "कीटनाशक / रसायन का संपर्क"
+    },
+    {
+      "id": "salivation_twitching",
+      "en": "Drooling, tiny pupils or muscle twitching",
+      "hi": "लार टपकना, छोटी पुतलियाँ, मांसपेशियों में फड़कन"
+    },
+    {
+      "id": "rash_not_fading",
+      "en": "Rash that does not fade on pressing",
+      "hi": "दबाने पर न मिटने वाले चकत्ते"
+    },
+    {
+      "id": "recent_sun_exposure",
+      "en": "Long time in sun or heat",
+      "hi": "धूप / गर्मी में लंबे समय तक रहे"
+    },
+    {
+      "id": "new_leg_swelling",
+      "en": "New leg swelling",
+      "hi": "पैरों में नई सूजन"
+    },
+    {
+      "id": "exertion_breathless",
+      "en": "Breathless on walking",
+      "hi": "चलने पर साँस फूलना"
+    },
+    {
+      "id": "thirst_urination",
+      "en": "Very thirsty, passing urine often",
+      "hi": "बहुत प्यास, बार-बार पेशाब"
+    },
+    {
+      "id": "burning_urine",
+      "en": "Burning or bloody urine",
+      "hi": "पेशाब में जलन / खून"
+    },
+    {
+      "id": "jaw_neck_pain",
+      "en": "Jaw or neck pain",
+      "hi": "जबड़े या गर्दन में दर्द"
+    },
+    {
+      "id": "fracture_suspected",
+      "en": "Looks broken or bent",
+      "hi": "हड्डी टूटी / मुड़ी लग रही"
+    },
+    {
+      "id": "deep_cut",
+      "en": "Deep cut",
+      "hi": "गहरा कट"
+    },
+    {
+      "id": "large_burn",
+      "en": "Burn bigger than palm",
+      "hi": "हथेली से बड़ा जला हुआ हिस्सा"
+    },
+    {
+      "id": "syncope",
+      "en": "Fainted or collapsed",
+      "hi": "बेहोश होकर गिरे"
+    },
+    {
+      "id": "seizure_now",
+      "en": "Fit now or just before coming",
+      "hi": "अभी या आने से पहले दौरा पड़ा"
+    },
+    {
+      "id": "unresponsive",
+      "en": "Not responding",
+      "hi": "कोई प्रतिक्रिया नहीं"
+    },
+    {
+      "id": "face_droop",
+      "en": "Face drooping on one side",
+      "hi": "चेहरा एक तरफ टेढ़ा"
+    },
+    {
+      "id": "arm_leg_weakness",
+      "en": "Weakness in one arm or leg",
+      "hi": "एक हाथ या पैर में कमजोरी"
+    },
+    {
+      "id": "slurred_speech",
+      "en": "Slurred or lost speech",
+      "hi": "बोली लड़खड़ा रही / बंद"
+    },
+    {
+      "id": "sudden_vision_loss",
+      "en": "Sudden loss of vision",
+      "hi": "अचानक नज़र चली गई"
+    }
+  ]
+}

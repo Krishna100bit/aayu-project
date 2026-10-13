@@ -1,0 +1,985 @@
+{
+  "_note": "Tiles shown to the receptionist. 'followups' are tag ids (see tags.json) shown as one yes/no sheet after a tile is tapped. 'flag' = red-flag candidate tile (UI shows a small red dot and shows follow-ups first). Synonyms are matched by the free-text keyword matcher (Devanagari and Roman Hindi). Marwari/Rajasthani words should be added with local staff.",
+  "categories": [
+    "Emergency signs",
+    "Heart & breathing",
+    "Common",
+    "Stomach",
+    "Injury",
+    "Bites & poison",
+    "Season (Jodhpur)",
+    "Women",
+    "Children",
+    "Eye",
+    "ENT",
+    "Dental",
+    "Skin",
+    "Bones & joints",
+    "Urine",
+    "Chronic",
+    "Chest",
+    "Mental health",
+    "Routine visit",
+    "Other"
+  ],
+  "tiles": [
+    {
+      "id": "chest_pain",
+      "icon": "heart-pulse",
+      "en": "Chest pain / tightness",
+      "hi": "सीने में दर्द / भारीपन",
+      "category": "Heart & breathing",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "sweating",
+        "pain_arm_jaw",
+        "nausea",
+        "breathless_rest",
+        "syncope"
+      ],
+      "synonyms": [
+        "seene mein dard",
+        "seena bhaari",
+        "seene mein jakdan",
+        "सीने में दर्द",
+        "छाती में दर्द",
+        "chest dard",
+        "dil mein dard"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "breathless",
+      "icon": "wind",
+      "en": "Difficulty breathing",
+      "hi": "साँस फूलना / साँस में तकलीफ",
+      "category": "Heart & breathing",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "breathless_rest",
+        "cant_speak_full",
+        "blue_lips",
+        "exertion_breathless"
+      ],
+      "synonyms": [
+        "saans phoolna",
+        "saans nahi aa rahi",
+        "dum ghutna",
+        "साँस फूलना",
+        "साँस नहीं आ रही",
+        "दम घुटना",
+        "hapni"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "palpitation",
+      "icon": "activity",
+      "en": "Heart racing",
+      "hi": "धड़कन तेज़",
+      "category": "Heart & breathing",
+      "suggested_dept": "CARD",
+      "followups": [
+        "palpitations",
+        "syncope",
+        "sweating"
+      ],
+      "synonyms": [
+        "dhadkan tez",
+        "dil tez dhadak raha",
+        "धड़कन तेज़"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "cough_cold",
+      "icon": "thermometer-snowflake",
+      "en": "Cold / mild cough",
+      "hi": "सर्दी-जुकाम / हल्की खाँसी",
+      "category": "Common",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "haemoptysis",
+        "weight_loss",
+        "work_stone_mining",
+        "fever_3_days"
+      ],
+      "synonyms": [
+        "sardi",
+        "zukam",
+        "khansi",
+        "सर्दी",
+        "जुकाम",
+        "खाँसी",
+        "nazla"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "fever",
+      "icon": "thermometer",
+      "en": "Fever",
+      "hi": "बुखार",
+      "category": "Common",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "fever_3_days",
+        "body_ache",
+        "neck_stiffness",
+        "confusion",
+        "rash_not_fading",
+        "persistent_vomiting",
+        "severe_abd_pain",
+        "bleeding_gums_nose"
+      ],
+      "synonyms": [
+        "bukhar",
+        "tez bukhar",
+        "taap",
+        "बुखार",
+        "तेज़ बुखार",
+        "tav"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "headache",
+      "icon": "brain",
+      "en": "Headache",
+      "hi": "सिर दर्द",
+      "category": "Common",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "severe_headache",
+        "visual_disturbance",
+        "neck_stiffness",
+        "confusion",
+        "vomiting_blood"
+      ],
+      "synonyms": [
+        "sir dard",
+        "sar dard",
+        "सिर दर्द",
+        "माथे में दर्द"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "stomach_pain",
+      "icon": "circle-dot",
+      "en": "Stomach pain",
+      "hi": "पेट दर्द",
+      "category": "Stomach",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "severe_abd_pain",
+        "rigid_abdomen",
+        "persistent_vomiting",
+        "black_stool",
+        "vomiting_blood"
+      ],
+      "synonyms": [
+        "pet dard",
+        "pet mein dard",
+        "पेट दर्द",
+        "पेट में दर्द",
+        "pait dukhe"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "vomiting_diarrhoea",
+      "icon": "droplets",
+      "en": "Vomiting / loose motions",
+      "hi": "उल्टी / दस्त",
+      "category": "Stomach",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "persistent_vomiting",
+        "reduced_urine",
+        "vomiting_blood",
+        "black_stool"
+      ],
+      "synonyms": [
+        "ulti",
+        "dast",
+        "loose motion",
+        "उल्टी",
+        "दस्त",
+        "patla pakhana"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "weakness_dizzy",
+      "icon": "battery-low",
+      "en": "Weakness / dizziness",
+      "hi": "कमजोरी / चक्कर",
+      "category": "Common",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "syncope",
+        "sweating",
+        "confusion",
+        "palpitations"
+      ],
+      "synonyms": [
+        "kamzori",
+        "chakkar",
+        "चक्कर",
+        "कमजोरी",
+        "chakkar aana"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "fainting",
+      "icon": "user-x",
+      "en": "Fainted / collapsed",
+      "hi": "बेहोशी / गिर पड़े",
+      "category": "Emergency signs",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "unresponsive",
+        "palpitations",
+        "seizure_now"
+      ],
+      "synonyms": [
+        "behosh",
+        "behoshi",
+        "बेहोश",
+        "बेहोशी",
+        "gir gaya",
+        "chakkar aa kar gir"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "fit",
+      "icon": "zap",
+      "en": "Fit / seizure",
+      "hi": "दौरा / मिर्गी",
+      "category": "Emergency signs",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "seizure_now",
+        "unresponsive",
+        "head_injury"
+      ],
+      "synonyms": [
+        "daura",
+        "mirgi",
+        "jhatke",
+        "दौरा",
+        "मिर्गी",
+        "झटके"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "stroke_signs",
+      "icon": "brain-circuit",
+      "en": "Face / arm weakness, speech trouble",
+      "hi": "चेहरा टेढ़ा / कमजोरी / बोलने में दिक्कत",
+      "category": "Emergency signs",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "face_droop",
+        "arm_leg_weakness",
+        "slurred_speech",
+        "sudden_vision_loss"
+      ],
+      "synonyms": [
+        "ek taraf kamzori",
+        "muh tedha",
+        "zubaan latpata",
+        "लकवा",
+        "muh tedha ho gaya",
+        "lakwa",
+        "bolne mein dikkat"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "bleeding",
+      "icon": "droplet",
+      "en": "Bleeding",
+      "hi": "खून बहना",
+      "category": "Emergency signs",
+      "suggested_dept": "SURG",
+      "followups": [
+        "heavy_bleeding",
+        "vomiting_blood",
+        "black_stool",
+        "head_injury"
+      ],
+      "synonyms": [
+        "khoon beh raha",
+        "khoon",
+        "खून बह रहा",
+        "रक्तस्राव",
+        "khoon aa raha"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "injury_accident",
+      "icon": "car",
+      "en": "Injury / accident",
+      "hi": "चोट / दुर्घटना",
+      "category": "Injury",
+      "suggested_dept": "ORTHO",
+      "followups": [
+        "head_injury",
+        "heavy_bleeding",
+        "fracture_suspected",
+        "deep_cut",
+        "unresponsive"
+      ],
+      "synonyms": [
+        "chot",
+        "accident",
+        "gir gaya",
+        "चोट",
+        "दुर्घटना",
+        "हादसा",
+        "sadak durghatna"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "fracture",
+      "icon": "bone",
+      "en": "Possible broken bone",
+      "hi": "हड्डी टूटी लगती है",
+      "category": "Injury",
+      "suggested_dept": "ORTHO",
+      "followups": [
+        "fracture_suspected",
+        "deep_cut",
+        "heavy_bleeding"
+      ],
+      "synonyms": [
+        "haddi tooti",
+        "fracture",
+        "हड्डी टूटी",
+        "हड्डी में चोट"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "burn",
+      "icon": "flame",
+      "en": "Burn",
+      "hi": "जलना",
+      "category": "Injury",
+      "suggested_dept": "SURG",
+      "followups": [
+        "large_burn",
+        "heavy_bleeding"
+      ],
+      "synonyms": [
+        "jal gaya",
+        "jalna",
+        "जल गया",
+        "जलना",
+        "aag se jala"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "snakebite",
+      "icon": "triangle-alert",
+      "en": "Snakebite",
+      "hi": "साँप का काटना",
+      "category": "Bites & poison",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "unresponsive",
+        "drowsy",
+        "heavy_bleeding"
+      ],
+      "synonyms": [
+        "saanp ne kaata",
+        "saanp kata",
+        "साँप ने काटा",
+        "साँप काटा",
+        "sarp dank"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "scorpion_sting",
+      "icon": "bug",
+      "en": "Scorpion sting",
+      "hi": "बिच्छू का डंक",
+      "category": "Bites & poison",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "sweating",
+        "breathless_rest",
+        "salivation_twitching",
+        "palpitations"
+      ],
+      "synonyms": [
+        "bichhu ne kaata",
+        "bichhu",
+        "बिच्छू ने काटा",
+        "बिच्छू",
+        "bichu dank"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "dog_animal_bite",
+      "icon": "dog",
+      "en": "Dog / animal bite",
+      "hi": "कुत्ते / जानवर का काटना",
+      "category": "Bites & poison",
+      "suggested_dept": "SURG",
+      "followups": [
+        "deep_cut",
+        "heavy_bleeding"
+      ],
+      "synonyms": [
+        "kutte ne kaata",
+        "kutta kata",
+        "कुत्ते ने काटा",
+        "जानवर ने काटा",
+        "bandar ne kaata"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "poisoning",
+      "icon": "skull",
+      "en": "Poison / pesticide / overdose",
+      "hi": "ज़हर / कीटनाशक / दवा की अधिक मात्रा",
+      "category": "Bites & poison",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "pesticide_exposure",
+        "salivation_twitching",
+        "drowsy",
+        "persistent_vomiting"
+      ],
+      "synonyms": [
+        "zehar",
+        "keetnashak",
+        "dawa zyada kha li",
+        "ज़हर",
+        "कीटनाशक",
+        "दवा ज्यादा खा ली",
+        "zehar pee liya"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "heat_stroke",
+      "icon": "sun",
+      "en": "Heat stroke / sun exposure",
+      "hi": "लू लगना / धूप से तबीयत खराब",
+      "category": "Season (Jodhpur)",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "hot_dry_skin",
+        "confusion",
+        "recent_sun_exposure",
+        "reduced_urine",
+        "syncope"
+      ],
+      "synonyms": [
+        "lu lag gayi",
+        "loo",
+        "लू लगना",
+        "लू",
+        "garmi se behosh",
+        "dhoop se"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "pregnancy_problem",
+      "icon": "baby",
+      "en": "Pregnancy problem",
+      "hi": "गर्भावस्था में समस्या",
+      "category": "Women",
+      "suggested_dept": "OBG",
+      "followups": [
+        "vaginal_bleeding",
+        "severe_headache",
+        "visual_disturbance",
+        "epigastric_pain",
+        "reduced_fetal_movement",
+        "seizure_now"
+      ],
+      "synonyms": [
+        "garbh mein dard",
+        "pet se hoon",
+        "paani toota",
+        "बच्चा हिल नहीं रहा",
+        "गर्भ में दर्द",
+        "गर्भवती",
+        "pregnant"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "women_health",
+      "icon": "flower",
+      "en": "Periods / women's health",
+      "hi": "माहवारी / स्त्री रोग",
+      "category": "Women",
+      "suggested_dept": "OBG",
+      "followups": [
+        "vaginal_bleeding",
+        "severe_abd_pain"
+      ],
+      "synonyms": [
+        "mahwari",
+        "periods",
+        "safed paani",
+        "माहवारी",
+        "पीरियड",
+        "सफेद पानी"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "child_fever",
+      "icon": "baby",
+      "en": "Child with fever / cough",
+      "hi": "बच्चे को बुखार / खाँसी",
+      "category": "Children",
+      "suggested_dept": "PAED",
+      "followups": [
+        "not_feeding",
+        "lethargic",
+        "chest_indrawing",
+        "fast_breathing",
+        "seizure_now",
+        "rash_not_fading"
+      ],
+      "synonyms": [
+        "bachche ko bukhar",
+        "bachcha dudh nahi pi raha",
+        "बच्चे को बुखार",
+        "बच्चा सुस्त",
+        "bachcha"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "child_other",
+      "icon": "smile",
+      "en": "Child - other problem",
+      "hi": "बच्चे की अन्य समस्या",
+      "category": "Children",
+      "suggested_dept": "PAED",
+      "followups": [
+        "not_feeding",
+        "lethargic",
+        "reduced_urine",
+        "persistent_vomiting"
+      ],
+      "synonyms": [
+        "bachche ko dast",
+        "bachcha ulti",
+        "बच्चे को दस्त",
+        "बच्चे को उल्टी"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "eye_red",
+      "icon": "eye",
+      "en": "Red / watery eyes",
+      "hi": "आँख लाल / पानी",
+      "category": "Eye",
+      "suggested_dept": "OPHTH",
+      "followups": [
+        "eye_pain",
+        "vision_change",
+        "light_sensitivity"
+      ],
+      "synonyms": [
+        "aankh laal",
+        "aankh mein paani",
+        "आँख लाल",
+        "आँख आना",
+        "aankh aayi"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "eye_vision",
+      "icon": "eye-off",
+      "en": "Eye pain / vision problem",
+      "hi": "आँख में दर्द / नज़र कमजोर",
+      "category": "Eye",
+      "suggested_dept": "OPHTH",
+      "followups": [
+        "eye_pain",
+        "vision_change",
+        "sudden_vision_loss",
+        "light_sensitivity"
+      ],
+      "synonyms": [
+        "aankh mein dard",
+        "dhundhla dikhna",
+        "नज़र कमजोर",
+        "धुंधला दिखना",
+        "dikhai nahi dena"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "ear_throat",
+      "icon": "ear",
+      "en": "Ear / nose / throat problem",
+      "hi": "कान / नाक / गले की तकलीफ",
+      "category": "ENT",
+      "suggested_dept": "ENT",
+      "followups": [
+        "lip_face_swelling",
+        "breathless_rest",
+        "fever_3_days"
+      ],
+      "synonyms": [
+        "kaan dard",
+        "gale mein dard",
+        "naak band",
+        "कान दर्द",
+        "गले में दर्द",
+        "नाक बंद"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "dental",
+      "icon": "smile",
+      "en": "Tooth / mouth pain",
+      "hi": "दाँत / मुँह में दर्द",
+      "category": "Dental",
+      "suggested_dept": "DENT",
+      "followups": [
+        "lip_face_swelling",
+        "fever_3_days"
+      ],
+      "synonyms": [
+        "daant dard",
+        "daant mein dard",
+        "दाँत दर्द",
+        "मसूड़ों में दर्द"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "skin",
+      "icon": "hand",
+      "en": "Skin rash / itching",
+      "hi": "त्वचा पर दाने / खुजली",
+      "category": "Skin",
+      "suggested_dept": "DERM",
+      "followups": [
+        "rash_not_fading",
+        "lip_face_swelling",
+        "fever_3_days",
+        "breathless_rest"
+      ],
+      "synonyms": [
+        "khujli",
+        "daane",
+        "chakatte",
+        "खुजली",
+        "दाने",
+        "चकत्ते",
+        "skin problem"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "allergy_swelling",
+      "icon": "alert-circle",
+      "en": "Swelling of face / lips / allergy",
+      "hi": "चेहरे / होंठ में सूजन / एलर्जी",
+      "category": "Emergency signs",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "lip_face_swelling",
+        "breathless_rest",
+        "cant_speak_full"
+      ],
+      "synonyms": [
+        "muh phool gaya",
+        "hont sooje",
+        "एलर्जी",
+        "चेहरा सूज गया",
+        "होंठ सूज गए"
+      ],
+      "red_flag_candidate": true
+    },
+    {
+      "id": "back_joint",
+      "icon": "bone",
+      "en": "Back / joint / muscle pain",
+      "hi": "कमर / जोड़ / मांसपेशी दर्द",
+      "category": "Bones & joints",
+      "suggested_dept": "ORTHO",
+      "followups": [
+        "fracture_suspected",
+        "new_leg_swelling",
+        "fever_3_days"
+      ],
+      "synonyms": [
+        "kamar dard",
+        "jodon mein dard",
+        "ghutne mein dard",
+        "कमर दर्द",
+        "जोड़ों में दर्द",
+        "घुटने में दर्द"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "urine_problem",
+      "icon": "droplets",
+      "en": "Urine problem",
+      "hi": "पेशाब की तकलीफ",
+      "category": "Urine",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "burning_urine",
+        "severe_abd_pain",
+        "fever_3_days",
+        "reduced_urine"
+      ],
+      "synonyms": [
+        "peshab mein jalan",
+        "peshab ruk gaya",
+        "पेशाब में जलन",
+        "पेशाब नहीं हो रहा"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "sugar_bp",
+      "icon": "activity",
+      "en": "High sugar / BP problem",
+      "hi": "शुगर / बी.पी. की समस्या",
+      "category": "Chronic",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "shaky_sweaty",
+        "drowsy",
+        "fast_deep_breathing",
+        "thirst_urination",
+        "severe_headache"
+      ],
+      "synonyms": [
+        "sugar",
+        "bp high",
+        "bp badh gaya",
+        "शुगर",
+        "बी.पी.",
+        "ब्लड प्रेशर"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "swelling_legs",
+      "icon": "footprints",
+      "en": "Leg swelling",
+      "hi": "पैरों में सूजन",
+      "category": "Heart & breathing",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "new_leg_swelling",
+        "exertion_breathless",
+        "breathless_rest"
+      ],
+      "synonyms": [
+        "pair mein sujan",
+        "pairon mein soojan",
+        "पैरों में सूजन"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "jaundice",
+      "icon": "pill",
+      "en": "Yellow eyes / jaundice",
+      "hi": "पीलिया / आँखें पीली",
+      "category": "Stomach",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "confusion",
+        "drowsy",
+        "persistent_vomiting",
+        "severe_abd_pain"
+      ],
+      "synonyms": [
+        "peeliya",
+        "aankhein peeli",
+        "पीलिया",
+        "आँखें पीली"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "tb_chronic_cough",
+      "icon": "wind",
+      "en": "Cough for more than 2 weeks",
+      "hi": "2 हफ्ते से अधिक खाँसी",
+      "category": "Chest",
+      "suggested_dept": "GEN_MED",
+      "followups": [
+        "haemoptysis",
+        "weight_loss",
+        "work_stone_mining",
+        "breathless_rest"
+      ],
+      "synonyms": [
+        "lambi khansi",
+        "tb",
+        "khansi mein khoon",
+        "लंबी खाँसी",
+        "टीबी",
+        "खाँसी में खून"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "mental_distress",
+      "icon": "brain",
+      "en": "Mental distress / sleep / low mood",
+      "hi": "मन परेशान / नींद / उदासी",
+      "category": "Mental health",
+      "suggested_dept": "PSY",
+      "followups": [
+        "self_harm_thoughts",
+        "confusion"
+      ],
+      "synonyms": [
+        "tension",
+        "neend nahi aati",
+        "udaas",
+        "तनाव",
+        "नींद नहीं आती",
+        "उदासी",
+        "depression"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "refill",
+      "icon": "pill",
+      "en": "Medicine refill",
+      "hi": "दवा दोबारा लेनी है",
+      "category": "Routine visit",
+      "suggested_dept": "GEN_MED",
+      "followups": [],
+      "synonyms": [
+        "dawa leni hai",
+        "refill",
+        "दवा लेनी है",
+        "दवाई दोबारा",
+        "prescription"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "follow_up",
+      "icon": "calendar-check",
+      "en": "Follow-up / show report",
+      "hi": "फॉलो-अप / रिपोर्ट दिखानी है",
+      "category": "Routine visit",
+      "suggested_dept": "GEN_MED",
+      "followups": [],
+      "synonyms": [
+        "report dikhani",
+        "follow up",
+        "dobara dikhana",
+        "रिपोर्ट दिखानी",
+        "फॉलो-अप",
+        "दोबारा दिखाना"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "certificate_other",
+      "icon": "file-text",
+      "en": "Certificate / paperwork / other",
+      "hi": "प्रमाण पत्र / कागज़ात / अन्य",
+      "category": "Routine visit",
+      "suggested_dept": "GEN_MED",
+      "followups": [],
+      "synonyms": [
+        "certificate",
+        "fitness",
+        "pramaan patra",
+        "सर्टिफिकेट",
+        "फिटनेस"
+      ],
+      "red_flag_candidate": false
+    },
+    {
+      "id": "something_else",
+      "icon": "message-square-plus",
+      "en": "Something else (type it)",
+      "hi": "कुछ और (लिखें या बोलें)",
+      "category": "Other",
+      "suggested_dept": "GEN_MED",
+      "followups": [],
+      "synonyms": [],
+      "red_flag_candidate": false
+    }
+  ],
+  "conditions": [
+    {
+      "id": "diabetes",
+      "en": "Diabetes / sugar",
+      "hi": "मधुमेह / शुगर"
+    },
+    {
+      "id": "hypertension",
+      "en": "High BP",
+      "hi": "उच्च रक्तचाप"
+    },
+    {
+      "id": "heart_disease",
+      "en": "Heart disease",
+      "hi": "हृदय रोग"
+    },
+    {
+      "id": "kidney_disease",
+      "en": "Kidney disease",
+      "hi": "किडनी रोग"
+    },
+    {
+      "id": "chronic_lung",
+      "en": "Asthma / COPD / chronic lung disease",
+      "hi": "दमा / COPD / फेफड़े का रोग"
+    },
+    {
+      "id": "tb_history",
+      "en": "TB (past or current)",
+      "hi": "टीबी (पहले या अभी)"
+    },
+    {
+      "id": "immunosuppressed",
+      "en": "Low immunity (HIV, cancer treatment, long-term steroids)",
+      "hi": "कम रोग प्रतिरोधक क्षमता"
+    },
+    {
+      "id": "epilepsy",
+      "en": "Epilepsy",
+      "hi": "मिर्गी"
+    },
+    {
+      "id": "thyroid",
+      "en": "Thyroid",
+      "hi": "थायरॉइड"
+    }
+  ]
+}

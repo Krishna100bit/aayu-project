@@ -1,0 +1,89 @@
+{
+  "_note": "avg_consult_minutes are placeholders; the app replaces them with a rolling average of real consultation times. EMERG is not a normal queue: Immediate patients are routed here regardless of the department they registered for.",
+  "departments": [
+    {
+      "id": "GEN_MED",
+      "name_en": "General Medicine",
+      "name_hi": "सामान्य चिकित्सा",
+      "avg_consult_minutes": 6,
+      "icon": "stethoscope"
+    },
+    {
+      "id": "PAED",
+      "name_en": "Paediatrics",
+      "name_hi": "शिशु रोग",
+      "avg_consult_minutes": 8,
+      "icon": "baby"
+    },
+    {
+      "id": "OBG",
+      "name_en": "Obstetrics & Gynaecology",
+      "name_hi": "प्रसूति एवं स्त्री रोग",
+      "avg_consult_minutes": 10,
+      "icon": "heart-pulse"
+    },
+    {
+      "id": "ORTHO",
+      "name_en": "Orthopaedics",
+      "name_hi": "अस्थि रोग",
+      "avg_consult_minutes": 7,
+      "icon": "bone"
+    },
+    {
+      "id": "SURG",
+      "name_en": "General Surgery",
+      "name_hi": "शल्य चिकित्सा",
+      "avg_consult_minutes": 8,
+      "icon": "scissors"
+    },
+    {
+      "id": "ENT",
+      "name_en": "ENT",
+      "name_hi": "कान नाक गला",
+      "avg_consult_minutes": 6,
+      "icon": "ear"
+    },
+    {
+      "id": "OPHTH",
+      "name_en": "Ophthalmology",
+      "name_hi": "नेत्र रोग",
+      "avg_consult_minutes": 6,
+      "icon": "eye"
+    },
+    {
+      "id": "DERM",
+      "name_en": "Dermatology",
+      "name_hi": "त्वचा रोग",
+      "avg_consult_minutes": 5,
+      "icon": "hand"
+    },
+    {
+      "id": "CARD",
+      "name_en": "Cardiology",
+      "name_hi": "हृदय रोग",
+      "avg_consult_minutes": 10,
+      "icon": "heart"
+    },
+    {
+      "id": "PSY",
+      "name_en": "Psychiatry",
+      "name_hi": "मनोरोग",
+      "avg_consult_minutes": 15,
+      "icon": "brain"
+    },
+    {
+      "id": "DENT",
+      "name_en": "Dental",
+      "name_hi": "दंत रोग",
+      "avg_consult_minutes": 10,
+      "icon": "smile"
+    },
+    {
+      "id": "EMERG",
+      "name_en": "Emergency / Casualty",
+      "name_hi": "आपातकालीन",
+      "avg_consult_minutes": 0,
+      "icon": "siren"
+    }
+  ]
+}

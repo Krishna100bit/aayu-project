@@ -1,0 +1,1460 @@
+{
+  "version": "0.1.0-draft",
+  "status": "Starter rule set drawn from published triage frameworks (NEWS2, ESI, Manchester, SATS, IMCI, WHO dengue). Every rule needs clinical sign-off before any real-world use.",
+  "levels": [
+    "IMMEDIATE",
+    "SOON",
+    "ROUTINE"
+  ],
+  "when_dsl": {
+    "tag": "symptom/follow-up tag present",
+    "all": "every child true",
+    "any": "at least one child true",
+    "age_gte": "years, adult age at or above",
+    "age_lt_years": "age under N years",
+    "pregnant": "boolean",
+    "cond": "stored/entered condition id",
+    "season": "monsoon|summer|winter (admin setting)",
+    "unmatched_text": "free text exists that matched no tag"
+  },
+  "modifiers": {
+    "bump_one_level_if_any": [
+      {
+        "age_gt": 60
+      },
+      {
+        "age_lt_years": 5
+      },
+      {
+        "pregnant": true
+      },
+      {
+        "cond_any": [
+          "diabetes",
+          "hypertension",
+          "heart_disease",
+          "kidney_disease",
+          "chronic_lung",
+          "immunosuppressed"
+        ]
+      }
+    ],
+    "only_if_something_fired": true,
+    "cap": "IMMEDIATE",
+    "never_applies_to_rules": [
+      "Q01",
+      "Q02"
+    ]
+  },
+  "safety": {
+    "highest_level_wins": true,
+    "missing_vitals_with_red_flag": "bump_one_level_and_add_task_measure_vitals",
+    "unmatched_text_default": "SOON",
+    "engine_error_default": "SOON",
+    "only_nurse_can_lower": true,
+    "llm_may_only_raise": true
+  },
+  "time_targets_minutes": {
+    "IMMEDIATE": 5,
+    "SOON": 30,
+    "ROUTINE": 120,
+    "note": "placeholders for clinical/admin sign-off"
+  },
+  "vitals": {
+    "scale": "NEWS2 Scale 1 (Royal College of Physicians, 2017)",
+    "bands": {
+      "rr": [
+        {
+          "max": 8,
+          "score": 3
+        },
+        {
+          "min": 9,
+          "max": 11,
+          "score": 1
+        },
+        {
+          "min": 12,
+          "max": 20,
+          "score": 0
+        },
+        {
+          "min": 21,
+          "max": 24,
+          "score": 2
+        },
+        {
+          "min": 25,
+          "score": 3
+        }
+      ],
+      "spo2": [
+        {
+          "max": 91,
+          "score": 3
+        },
+        {
+          "min": 92,
+          "max": 93,
+          "score": 2
+        },
+        {
+          "min": 94,
+          "max": 95,
+          "score": 1
+        },
+        {
+          "min": 96,
+          "score": 0
+        }
+      ],
+      "sbp": [
+        {
+          "max": 90,
+          "score": 3
+        },
+        {
+          "min": 91,
+          "max": 100,
+          "score": 2
+        },
+        {
+          "min": 101,
+          "max": 110,
+          "score": 1
+        },
+        {
+          "min": 111,
+          "max": 219,
+          "score": 0
+        },
+        {
+          "min": 220,
+          "score": 3
+        }
+      ],
+      "hr": [
+        {
+          "max": 40,
+          "score": 3
+        },
+        {
+          "min": 41,
+          "max": 50,
+          "score": 1
+        },
+        {
+          "min": 51,
+          "max": 90,
+          "score": 0
+        },
+        {
+          "min": 91,
+          "max": 110,
+          "score": 1
+        },
+        {
+          "min": 111,
+          "max": 130,
+          "score": 2
+        },
+        {
+          "min": 131,
+          "score": 3
+        }
+      ],
+      "temp_c": [
+        {
+          "max": 35.0,
+          "score": 3
+        },
+        {
+          "min": 35.1,
+          "max": 36.0,
+          "score": 1
+        },
+        {
+          "min": 36.1,
+          "max": 38.0,
+          "score": 0
+        },
+        {
+          "min": 38.1,
+          "max": 39.0,
+          "score": 1
+        },
+        {
+          "min": 39.1,
+          "score": 2
+        }
+      ],
+      "consciousness": {
+        "alert": 0,
+        "confused": 3,
+        "voice": 3,
+        "pain": 3,
+        "unresponsive": 3
+      }
+    },
+    "mapping": {
+      "any_single_param_score": {
+        "3": "IMMEDIATE",
+        "2": "SOON"
+      },
+      "aggregate": {
+        "5+": "IMMEDIATE",
+        "3-4": "SOON"
+      }
+    },
+    "extras": [
+      {
+        "id": "V-BP-HIGH",
+        "when": "sbp>=180 or dbp>=120",
+        "level": "SOON",
+        "escalate_to_immediate_with": [
+          "chest_pain",
+          "severe_headache",
+          "arm_leg_weakness",
+          "confusion"
+        ],
+        "status": "clinical_signoff_pending"
+      },
+      {
+        "id": "V-BP-PREG",
+        "when": "pregnant and (sbp>=160 or dbp>=110)",
+        "level": "IMMEDIATE",
+        "status": "clinical_signoff_pending"
+      },
+      {
+        "id": "V-GLU-LOW",
+        "when": "glucose_mgdl<70 and (sweating or drowsy or confusion)",
+        "level": "IMMEDIATE",
+        "status": "clinical_signoff_pending"
+      }
+    ],
+    "children": {
+      "note": "NEWS2 is not validated in children. Use age-banded ranges set by the clinical team; until then child vitals can only raise to SOON (and IMMEDIATE with SpO2<=92 or lethargy), never lower.",
+      "reference_normal_ranges_apls_style": {
+        "lt_1y": {
+          "rr": [
+            30,
+            40
+          ],
+          "hr": [
+            110,
+            160
+          ]
+        },
+        "1_2y": {
+          "rr": [
+            25,
+            35
+          ],
+          "hr": [
+            100,
+            150
+          ]
+        },
+        "2_5y": {
+          "rr": [
+            25,
+            30
+          ],
+          "hr": [
+            95,
+            140
+          ]
+        },
+        "5_12y": {
+          "rr": [
+            20,
+            25
+          ],
+          "hr": [
+            80,
+            120
+          ]
+        },
+        "gt_12y": {
+          "rr": [
+            15,
+            20
+          ],
+          "hr": [
+            60,
+            100
+          ]
+        }
+      }
+    }
+  },
+  "rules": [
+    {
+      "id": "R01",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "chest_pain"
+          },
+          {
+            "any": [
+              {
+                "tag": "sweating"
+              },
+              {
+                "tag": "pain_arm_jaw"
+              },
+              {
+                "tag": "breathless_rest"
+              },
+              {
+                "tag": "nausea"
+              },
+              {
+                "tag": "syncope"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Chest tightness with sweating, arm/jaw pain, breathlessness or fainting in a {age}-year-old; possible cardiac event.",
+      "reason_hi": "सीने में दर्द के साथ पसीना/साँस फूलना/बेहोशी; हृदय संबंधी आपात संभव।",
+      "concern": "Possible acute coronary syndrome",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_bp_pulse_spo2",
+        "ecg_if_available"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R02",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "face_droop"
+          },
+          {
+            "tag": "arm_leg_weakness"
+          },
+          {
+            "tag": "slurred_speech"
+          },
+          {
+            "tag": "sudden_vision_loss"
+          }
+        ]
+      },
+      "reason_en": "Face droop, one-sided weakness, slurred speech or sudden vision loss; possible stroke. Note the time symptoms started.",
+      "reason_hi": "चेहरा टेढ़ा/एक तरफ कमजोरी/बोलने में दिक्कत; लकवे का संदेह।",
+      "concern": "Possible stroke (FAST)",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "note_symptom_start_time",
+        "measure_glucose"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R03",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "breathless_rest"
+          },
+          {
+            "tag": "cant_speak_full"
+          },
+          {
+            "tag": "blue_lips"
+          }
+        ]
+      },
+      "reason_en": "Breathless at rest, unable to speak full sentences or blue lips; breathing emergency.",
+      "reason_hi": "आराम में साँस फूलना/नीले होंठ; साँस का आपात।",
+      "concern": "Respiratory distress",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_spo2_rr"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R04",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "fever"
+          },
+          {
+            "any": [
+              {
+                "tag": "neck_stiffness"
+              },
+              {
+                "tag": "confusion"
+              },
+              {
+                "tag": "rash_not_fading"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Fever with stiff neck, confusion or non-fading rash; possible meningitis or sepsis.",
+      "reason_hi": "बुखार के साथ गर्दन अकड़न/भ्रम/चकत्ते; गंभीर संक्रमण का संदेह।",
+      "concern": "Possible meningitis / sepsis",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R05",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "seizure_now"
+          },
+          {
+            "tag": "unresponsive"
+          },
+          {
+            "tag": "drowsy"
+          }
+        ]
+      },
+      "reason_en": "Fit now or recently, or drowsy / not responding.",
+      "reason_hi": "दौरा या बेहोशी/बहुत नींद।",
+      "concern": "Neurological emergency",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_glucose",
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R06",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "snakebite"
+          },
+          {
+            "tag": "pesticide_exposure"
+          },
+          {
+            "tag": "salivation_twitching"
+          },
+          {
+            "all": [
+              {
+                "tag": "poisoning"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Snakebite or poison/pesticide exposure; possible envenomation or poisoning.",
+      "reason_hi": "साँप का काटना या ज़हर/कीटनाशक का संपर्क।",
+      "concern": "Envenomation or poisoning (incl. organophosphate)",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "note_substance_and_time",
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R07",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "heavy_bleeding"
+          },
+          {
+            "tag": "vomiting_blood"
+          },
+          {
+            "tag": "black_stool"
+          },
+          {
+            "all": [
+              {
+                "tag": "head_injury"
+              },
+              {
+                "any": [
+                  {
+                    "tag": "drowsy"
+                  },
+                  {
+                    "tag": "persistent_vomiting"
+                  },
+                  {
+                    "tag": "confusion"
+                  },
+                  {
+                    "tag": "unresponsive"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Heavy bleeding, vomiting blood, black stools or head injury with drowsiness/vomiting.",
+      "reason_hi": "तेज़ रक्तस्राव/खून की उल्टी/सिर की चोट के साथ उल्टी।",
+      "concern": "Haemorrhage or major trauma",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_bp_pulse"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R08",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "pregnant": true
+          },
+          {
+            "any": [
+              {
+                "tag": "vaginal_bleeding"
+              },
+              {
+                "tag": "severe_headache"
+              },
+              {
+                "tag": "visual_disturbance"
+              },
+              {
+                "tag": "epigastric_pain"
+              },
+              {
+                "tag": "reduced_fetal_movement"
+              },
+              {
+                "tag": "seizure_now"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Pregnant with bleeding, severe headache, vision change, upper stomach pain, reduced baby movement or fit.",
+      "reason_hi": "गर्भवती महिला में रक्तस्राव/तेज़ सिर दर्द/नज़र धुंधली/बच्चा कम हिल रहा।",
+      "concern": "Obstetric emergency (e.g. pre-eclampsia, abruption)",
+      "dept_hint": "OBG",
+      "tasks": [
+        "measure_bp_now"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R09",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "age_lt_years": 5
+          },
+          {
+            "any": [
+              {
+                "tag": "not_feeding"
+              },
+              {
+                "tag": "lethargic"
+              },
+              {
+                "tag": "seizure_now"
+              },
+              {
+                "tag": "chest_indrawing"
+              },
+              {
+                "all": [
+                  {
+                    "tag": "persistent_vomiting"
+                  },
+                  {
+                    "tag": "not_feeding"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Child with danger signs: not feeding, very sleepy, fit, or chest pulling in.",
+      "reason_hi": "बच्चे में खतरे के लक्षण: दूध/पानी नहीं पी रहा, बहुत सुस्त, दौरा, छाती धँस रही।",
+      "concern": "IMCI danger signs",
+      "dept_hint": "PAED",
+      "tasks": [
+        "measure_spo2_rr_temp"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R10",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "cond": "diabetes"
+          },
+          {
+            "any": [
+              {
+                "tag": "drowsy"
+              },
+              {
+                "tag": "shaky_sweaty"
+              },
+              {
+                "tag": "confusion"
+              },
+              {
+                "tag": "fast_deep_breathing"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Known diabetes with drowsiness, shakiness/sweating, confusion or fast deep breathing; check sugar now.",
+      "reason_hi": "मधुमेह रोगी में सुस्ती/काँपना-पसीना/भ्रम; अभी शुगर जाँचें।",
+      "concern": "Hypoglycaemia or DKA",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_glucose_now"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R11",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "syncope"
+          },
+          {
+            "any": [
+              {
+                "tag": "palpitations"
+              },
+              {
+                "tag": "chest_pain"
+              },
+              {
+                "age_gte": 60
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Fainting or collapse with palpitations, chest discomfort or older age.",
+      "reason_hi": "बेहोशी के साथ धड़कन/सीने में दर्द या बुज़ुर्ग।",
+      "concern": "Arrhythmia or cardiac cause",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_bp_pulse",
+        "ecg_if_available"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R12",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "lip_face_swelling"
+          },
+          {
+            "any": [
+              {
+                "tag": "breathless_rest"
+              },
+              {
+                "tag": "cant_speak_full"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Swelling of lips, face or tongue with breathing trouble; possible severe allergy.",
+      "reason_hi": "चेहरे/होंठ में सूजन के साथ साँस की तकलीफ।",
+      "concern": "Anaphylaxis",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_spo2_rr"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R13",
+      "level": "IMMEDIATE",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "tag": "hot_dry_skin"
+          },
+          {
+            "any": [
+              {
+                "tag": "confusion"
+              },
+              {
+                "tag": "drowsy"
+              },
+              {
+                "tag": "syncope"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Very hot, dry skin with confusion or collapse after heat; possible heat stroke.",
+      "reason_hi": "तेज़ गरम सूखी त्वचा के साथ भ्रम/बेहोशी; लू का आपात।",
+      "concern": "Heat stroke",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_temp_bp_pulse"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R14",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "self_harm_thoughts"
+          }
+        ]
+      },
+      "reason_en": "Thoughts of self-harm. Do not leave the person alone; call nurse now.",
+      "reason_hi": "खुद को नुकसान के विचार। अकेला न छोड़ें; तुरंत नर्स को बुलाएँ।",
+      "concern": "Safety risk",
+      "dept_hint": "PSY",
+      "tasks": [
+        "stay_with_patient"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "R15",
+      "level": "IMMEDIATE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "severe_abd_pain"
+          },
+          {
+            "any": [
+              {
+                "tag": "rigid_abdomen"
+              },
+              {
+                "tag": "persistent_vomiting"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Severe stomach pain with a hard abdomen or repeated vomiting; possible acute abdomen.",
+      "reason_hi": "तेज़ पेट दर्द के साथ सख़्त पेट/बार-बार उल्टी।",
+      "concern": "Acute abdomen",
+      "dept_hint": "SURG",
+      "tasks": [
+        "measure_bp_pulse_temp"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "L01",
+      "level": "IMMEDIATE",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "tag": "scorpion_sting"
+          },
+          {
+            "any": [
+              {
+                "tag": "sweating"
+              },
+              {
+                "tag": "breathless_rest"
+              },
+              {
+                "tag": "salivation_twitching"
+              },
+              {
+                "tag": "palpitations"
+              },
+              {
+                "age_lt_years": 10
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Scorpion sting with sweating, breathing trouble, twitching, racing heart, or in a child.",
+      "reason_hi": "बिच्छू के डंक के साथ पसीना/साँस की तकलीफ/बच्चा।",
+      "concern": "Severe scorpion envenomation",
+      "dept_hint": "EMERG",
+      "tasks": [
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "L02",
+      "level": "SOON",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "tag": "scorpion_sting"
+          }
+        ]
+      },
+      "reason_en": "Scorpion sting; needs timely assessment.",
+      "reason_hi": "बिच्छू का डंक; जल्द जाँच ज़रूरी।",
+      "concern": "Scorpion sting",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "L03",
+      "level": "SOON",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "tag": "cough_cold"
+              },
+              {
+                "tag": "tb_chronic_cough"
+              },
+              {
+                "tag": "breathless"
+              }
+            ]
+          },
+          {
+            "tag": "work_stone_mining"
+          },
+          {
+            "any": [
+              {
+                "tag": "weight_loss"
+              },
+              {
+                "tag": "exertion_breathless"
+              },
+              {
+                "tag": "haemoptysis"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Long-standing cough/breathlessness in a stone or mining worker; needs chest assessment (silicosis or TB possible).",
+      "reason_hi": "पत्थर/खदान में काम करने वाले को लंबी खाँसी/साँस फूलना।",
+      "concern": "Possible silicosis or TB",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_spo2_rr"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "L04",
+      "level": "SOON",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "tag": "dog_animal_bite"
+          }
+        ]
+      },
+      "reason_en": "Animal bite; wound care and rabies assessment needed.",
+      "reason_hi": "जानवर का काटना; घाव की देखभाल और रेबीज़ जाँच।",
+      "concern": "Animal bite",
+      "dept_hint": "SURG",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "L05",
+      "level": "SOON",
+      "pack": "jodhpur",
+      "when": {
+        "all": [
+          {
+            "tag": "heat_stroke"
+          }
+        ]
+      },
+      "reason_en": "Heat illness; check temperature and hydration.",
+      "reason_hi": "गर्मी से तबीयत खराब; तापमान और पानी की कमी जाँचें।",
+      "concern": "Heat illness",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_temp_bp_pulse"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S01",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "fever"
+          },
+          {
+            "tag": "fever_3_days"
+          }
+        ]
+      },
+      "reason_en": "Fever for 3 days or more.",
+      "reason_hi": "3 दिन से अधिक बुखार।",
+      "concern": "Prolonged fever",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S02",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "fever"
+          },
+          {
+            "any": [
+              {
+                "tag": "persistent_vomiting"
+              },
+              {
+                "tag": "severe_abd_pain"
+              },
+              {
+                "tag": "bleeding_gums_nose"
+              },
+              {
+                "tag": "body_ache"
+              }
+            ]
+          },
+          {
+            "season": "monsoon"
+          }
+        ]
+      },
+      "reason_en": "Fever with warning signs in monsoon season; dengue possible.",
+      "reason_hi": "मानसून में बुखार के साथ उल्टी/पेट दर्द/खून; डेंगू संभव।",
+      "concern": "Dengue warning signs",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_full_vitals"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S03",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "vomiting_diarrhoea"
+          },
+          {
+            "any": [
+              {
+                "tag": "reduced_urine"
+              },
+              {
+                "tag": "persistent_vomiting"
+              },
+              {
+                "tag": "weakness_dizzy"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Vomiting or loose motions with dehydration signs.",
+      "reason_hi": "उल्टी-दस्त के साथ पानी की कमी के लक्षण।",
+      "concern": "Dehydration",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_bp_pulse"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S04",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "burning_urine"
+          },
+          {
+            "all": [
+              {
+                "tag": "urine_problem"
+              },
+              {
+                "tag": "fever_3_days"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "tag": "stomach_pain"
+              },
+              {
+                "any": [
+                  {
+                    "tag": "severe_abd_pain"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Urine problem or moderate-to-severe stomach pain.",
+      "reason_hi": "पेशाब की समस्या या पेट में तेज़ दर्द।",
+      "concern": "Urinary or abdominal problem",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S05",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "tag": "eye_red"
+              },
+              {
+                "tag": "eye_vision"
+              }
+            ]
+          },
+          {
+            "any": [
+              {
+                "tag": "eye_pain"
+              },
+              {
+                "tag": "vision_change"
+              },
+              {
+                "tag": "light_sensitivity"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Red eye with pain or vision change.",
+      "reason_hi": "आँख लाल के साथ दर्द/नज़र में बदलाव।",
+      "concern": "Possible serious eye condition",
+      "dept_hint": "OPHTH",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S06",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "fracture_suspected"
+          },
+          {
+            "tag": "deep_cut"
+          },
+          {
+            "tag": "large_burn"
+          }
+        ]
+      },
+      "reason_en": "Suspected fracture, deep cut or large burn.",
+      "reason_hi": "हड्डी टूटने/गहरे कट/बड़े जले का संदेह।",
+      "concern": "Injury needing prompt care",
+      "dept_hint": "ORTHO",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S07",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "age_lt_years": 5
+          },
+          {
+            "any": [
+              {
+                "tag": "child_fever"
+              },
+              {
+                "tag": "fever"
+              },
+              {
+                "tag": "cough_cold"
+              }
+            ]
+          },
+          {
+            "any": [
+              {
+                "tag": "fast_breathing"
+              },
+              {
+                "tag": "fever_3_days"
+              },
+              {
+                "tag": "child_fever"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Child under 5 with fever or cough.",
+      "reason_hi": "5 वर्ष से छोटे बच्चे में बुखार/खाँसी।",
+      "concern": "Young child with infection",
+      "dept_hint": "PAED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S08",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "exertion_breathless"
+          },
+          {
+            "tag": "new_leg_swelling"
+          },
+          {
+            "tag": "haemoptysis"
+          },
+          {
+            "all": [
+              {
+                "tag": "tb_chronic_cough"
+              },
+              {
+                "tag": "weight_loss"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Breathless on walking, new leg swelling, coughing blood or long cough with weight loss.",
+      "reason_hi": "चलने पर साँस फूलना/पैरों में सूजन/खाँसी में खून।",
+      "concern": "Possible heart, lung or TB problem",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S09",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "sugar_bp"
+          },
+          {
+            "any": [
+              {
+                "tag": "thirst_urination"
+              },
+              {
+                "tag": "severe_headache"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Sugar or BP problem with symptoms.",
+      "reason_hi": "शुगर/बी.पी. की समस्या के साथ लक्षण।",
+      "concern": "Uncontrolled diabetes or BP",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S10",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "tag": "jaw_neck_pain"
+              },
+              {
+                "tag": "epigastric_pain"
+              },
+              {
+                "all": [
+                  {
+                    "tag": "nausea"
+                  },
+                  {
+                    "tag": "sweating"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "age_gte": 18
+          }
+        ]
+      },
+      "reason_en": "Jaw/neck/upper-stomach pain or nausea with sweating in an adult; heart problem can look like this.",
+      "reason_hi": "जबड़े/गर्दन/ऊपरी पेट में दर्द या जी मिचलाना व पसीना; हृदय की समस्या ऐसे भी दिख सकती है।",
+      "concern": "Atypical cardiac presentation",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_bp_pulse_spo2"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S12",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "palpitation"
+          }
+        ]
+      },
+      "reason_en": "Racing heart.",
+      "reason_hi": "धड़कन तेज़।",
+      "concern": "Palpitations",
+      "dept_hint": "CARD",
+      "tasks": [
+        "measure_bp_pulse"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S13",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "jaundice"
+          }
+        ]
+      },
+      "reason_en": "Yellow eyes / jaundice.",
+      "reason_hi": "आँखें पीली/पीलिया।",
+      "concern": "Jaundice",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S14",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "mental_distress"
+          }
+        ]
+      },
+      "reason_en": "Mental distress; needs a gentle early check.",
+      "reason_hi": "मानसिक परेशानी; शांति से जल्द जाँच।",
+      "concern": "Mental health",
+      "dept_hint": "PSY",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S15",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "tag": "allergy_swelling"
+          }
+        ]
+      },
+      "reason_en": "Swelling or allergy; check breathing.",
+      "reason_hi": "सूजन/एलर्जी; साँस जाँचें।",
+      "concern": "Allergy",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "measure_spo2_rr"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "S11",
+      "level": "SOON",
+      "pack": "core",
+      "when": {
+        "unmatched_text": true
+      },
+      "reason_en": "Unusual symptom not in the list; nurse to check and set priority.",
+      "reason_hi": "सूची में न मिलने वाला लक्षण; नर्स जाँचकर प्राथमिकता तय करेगी।",
+      "concern": "Unmatched free text",
+      "dept_hint": "GEN_MED",
+      "tasks": [
+        "nurse_verify_symptom"
+      ],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "Q01",
+      "level": "ROUTINE",
+      "pack": "core",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "tag": "cough_cold"
+              },
+              {
+                "tag": "headache"
+              },
+              {
+                "tag": "skin"
+              },
+              {
+                "tag": "back_joint"
+              },
+              {
+                "tag": "ear_throat"
+              },
+              {
+                "tag": "dental"
+              },
+              {
+                "tag": "eye_red"
+              },
+              {
+                "tag": "urine_problem"
+              },
+              {
+                "tag": "women_health"
+              },
+              {
+                "tag": "stomach_pain"
+              },
+              {
+                "tag": "vomiting_diarrhoea"
+              },
+              {
+                "tag": "weakness_dizzy"
+              }
+            ]
+          }
+        ]
+      },
+      "reason_en": "Common problem with no warning signs reported.",
+      "reason_hi": "कोई चेतावनी लक्षण नहीं; सामान्य समस्या।",
+      "concern": "Common complaint",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    },
+    {
+      "id": "Q02",
+      "level": "ROUTINE",
+      "pack": "core",
+      "when": {
+        "any": [
+          {
+            "tag": "refill"
+          },
+          {
+            "tag": "follow_up"
+          },
+          {
+            "tag": "certificate_other"
+          }
+        ]
+      },
+      "reason_en": "Routine refill, follow-up or paperwork; no symptoms reported.",
+      "reason_hi": "नियमित दवा/फॉलो-अप/कागज़ात; कोई लक्षण नहीं।",
+      "concern": "Routine visit",
+      "dept_hint": "GEN_MED",
+      "tasks": [],
+      "status": "clinical_signoff_pending"
+    }
+  ]
+}
