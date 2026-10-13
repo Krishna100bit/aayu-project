@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/*
+ * TriageLane design system
+ * Warm paper, ink, hairlines. No blue, no gradients, no glass, no glow.
+ * Levels are never colour alone: always icon + label (see LevelBadge).
+ */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #f6f3ec;
+  --color-paper-deep: #efeadf;
+  --color-card: #ffffff;
+  --color-hairline: #e4ded2;
+  --color-hairline-strong: #cfc7b8;
+
+  /* Ink */
+  --color-ink: #1f1b16;
+  --color-ink-2: #3d362e;
+  --color-muted: #6b6358;
+  --color-faint: #9a9185;
+
+  /* Accent: Jodhpur sandstone, used sparingly */
+  --color-sand: #c2703d;
+  --color-sand-soft: #f6e6da;
+
+  /* Triage levels */
+  --color-imm: #b42318;
+  --color-imm-ink: #7a1710;
+  --color-imm-soft: #fdecea;
+  --color-imm-line: #f2c4bf;
+
+  --color-soon: #b7791f;
+  --color-soon-ink: #7a4f12;
+  --color-soon-soft: #fdf3dc;
+  --color-soon-line: #f0d9a6;
+
+  --color-rout: #2f6b4f;
+  --color-rout-ink: #1f4a36;
+  --color-rout-soft: #e8f1eb;
+  --color-rout-line: #bfd8c8;
+
+  /* Type */
+  --font-sans: var(--font-plex-sans), var(--font-plex-deva), ui-sans-serif, system-ui, sans-serif;
+  --font-deva: var(--font-plex-deva), var(--font-plex-sans), sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Elevation: hairline first, shadow only for floating layers */
+  --shadow-float: 0 1px 0 rgb(31 27 22 / 0.04), 0 8px 24px -12px rgb(31 27 22 / 0.18);
+
+  --animate-pulse-imm: pulse-imm 1.6s ease-in-out infinite;
+  @keyframes pulse-imm {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(180 35 24 / 0); }
+    50% { box-shadow: 0 0 0 4px rgb(180 35 24 / 0.18); }
+  }
+}
+
+/* High-contrast mode: toggled with <html data-contrast="high"> */
+[data-contrast="high"] {
+  --color-paper: #ffffff;
+  --color-paper-deep: #f2f2f2;
+  --color-hairline: #8a8278;
+  --color-hairline-strong: #4a443c;
+  --color-ink: #000000;
+  --color-ink-2: #111111;
+  --color-muted: #2b2620;
+  --color-faint: #4a443c;
+  --color-imm: #8f1309;
+  --color-soon: #7a4f00;
+  --color-rout: #174a31;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss02", "tnum" 0;
+    min-height: 100dvh;
+  }
+  :lang(hi) body {
+    line-height: 1.6;
+  }
+  ::selection {
+    background: var(--color-sand-soft);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+  .hairline { border: 1px solid var(--color-hairline); }
+  .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+  /* Minimum touch target per UX rules */
+  .tap { min-height: 48px; min-width: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

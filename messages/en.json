@@ -1,0 +1,43 @@
+{
+  "app": {
+    "name": "TriageLane",
+    "tagline": "Sickest first, not first come.",
+    "hospital": "Demo District Hospital, Jodhpur"
+  },
+  "nav": {
+    "reception": "Reception",
+    "nurse": "Nurse",
+    "doctor": "Doctor",
+    "admin": "Admin",
+    "display": "Waiting hall"
+  },
+  "levels": {
+    "IMMEDIATE": "Immediate",
+    "SOON": "Soon",
+    "ROUTINE": "Routine",
+    "IMMEDIATE_desc": "Possible life-threatening problem. Nurse now.",
+    "SOON_desc": "Needs timely assessment ahead of routine.",
+    "ROUTINE_desc": "Stable or administrative. Token order."
+  },
+  "common": {
+    "language": "Language",
+    "highContrast": "High contrast",
+    "demoBanner": "Demo data, not real patients",
+    "comingSoon": "This screen is built in a later phase.",
+    "target": "Target"
+  },
+  "home": {
+    "title": "Choose your workspace",
+    "intro": "TriageLane suggests a priority at the registration desk, keeps a live queue per department, and lets nurses verify and override in one tap. Every decision has a reason and an audit entry.",
+    "levelsTitle": "Three lanes, always with icon and label",
+    "minutes": "{n} min",
+    "roles": {
+      "reception": "Register patients, pick symptoms, print token slips.",
+      "nurse": "Live lanes, vitals, verify, reorder and override.",
+      "doctor": "Your sorted queue with reasons and vitals.",
+      "admin": "Rules, catalogue, settings, analytics and audit.",
+      "display": "Token numbers and now serving, for the hall screen."
+    }
+  },
+  "disclaimer": "Decision support for queue ordering. Thresholds are based on published triage frameworks and require clinical validation before real deployment. TriageLane does not diagnose and does not replace clinical judgement. Demo uses synthetic data only."
+}
