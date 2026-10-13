@@ -137,7 +137,7 @@ async function seed() {
     { key: "notify_max_per_hour", value: 3 },
   ];
   for (const s of settings) {
-    await supabase.from("app_settings").upsert(s as any);
+    await supabase.from("app_settings").upsert(s as unknown as Record<string, unknown>);
   }
   console.log("✓ App settings seeded.");
 
@@ -212,7 +212,7 @@ async function seed() {
   // Insert base demo patients
   const createdPatients: Record<string, string> = {};
   for (const p of demoPatients) {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("patients")
       .upsert(p, { onConflict: "uhid" })
       .select("id, uhid")

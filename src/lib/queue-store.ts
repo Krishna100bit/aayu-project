@@ -56,8 +56,6 @@ export interface PatientVisit {
 }
 
 let memoryVisits: PatientVisit[] = [];
-let hasFetchedInitially = false;
-let isFetching = false;
 const listeners = new Set<() => void>();
 
 function notify() {
@@ -71,19 +69,15 @@ function setMemoryVisits(visits: PatientVisit[]) {
 
 export async function fetchQueueVisits(department?: string): Promise<PatientVisit[]> {
   try {
-    isFetching = true;
     const url = department && department !== "ALL" ? `/api/visits?department=${encodeURIComponent(department)}` : `/api/visits`;
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch visits");
     const data: PatientVisit[] = await res.json();
     setMemoryVisits(data);
-    hasFetchedInitially = true;
     return data;
   } catch (err) {
     console.error("fetchQueueVisits error:", err);
     return memoryVisits;
-  } finally {
-    isFetching = false;
   }
 }
 

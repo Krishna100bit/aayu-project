@@ -2,7 +2,44 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { PatientVisit } from "@/lib/queue-store";
 
-function mapRowToVisit(row: any): PatientVisit {
+interface DatabaseVisitRow {
+  id: string;
+  department_id: string;
+  token_no: number;
+  token_label?: string;
+  status_code: string;
+  visit_date: string;
+  registered_at: string;
+  triaged_at?: string;
+  called_at?: string;
+  consult_start?: string;
+  consult_end?: string;
+  status: PatientVisit["status"];
+  level: PatientVisit["level"];
+  level_source: PatientVisit["levelSource"];
+  reason_en?: string;
+  reason_hi?: string;
+  fired_rules?: string[];
+  tasks?: string[];
+  needs_verification?: boolean;
+  symptom_tags?: string[];
+  free_text?: string;
+  vitals?: PatientVisit["vitals"];
+  sort_key?: number;
+  patient?: {
+    uhid?: string;
+    full_name?: string;
+    age_years_at_registration?: number;
+    sex?: string;
+    phone?: string;
+    pregnant?: boolean;
+  };
+  room?: {
+    room_number?: string;
+  };
+}
+
+function mapRowToVisit(row: DatabaseVisitRow): PatientVisit {
   return {
     id: row.id,
     uhid: row.patient?.uhid || undefined,
@@ -44,7 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const body = await req.json();
     const { status, roomLabel, departmentId } = body;
 
-    const updates: Record<string, any> = { status };
+    const updates: Record<string, unknown> = { status };
     const now = new Date().toISOString();
 
     if (status === "called") {
@@ -102,8 +139,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       payload: { status, roomLabel, updates },
     });
 
-    return NextResponse.json(mapRowToVisit(updated));
-  } catch (err: any) {
-    return NextResponse.json({ error: err?.message || "Internal server error" }, { status: 500 });
+    return NextResponse.json(mapRowToVisit(updated as unknown as DatabaseVisitRow));
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Internal server error";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
