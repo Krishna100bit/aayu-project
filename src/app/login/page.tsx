@@ -1,48 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Shield, KeyRound, UserCheck, Stethoscope, Activity, ClipboardList, AlertCircle, ArrowRight } from "lucide-react";
 
-const STAFF_STATIONS = [
-  {
-    role: "receptionist",
+interface DatabaseStaff {
+  id: string;
+  fullName: string;
+  role: string;
+  departmentId: string;
+  email: string;
+}
+
+const ROLE_METADATA: Record<string, { label: string; icon: typeof Shield; description: string }> = {
+  receptionist: {
     label: "Reception Desk",
-    staffName: "Anita Sharma",
-    email: "anita@triagelane.org",
-    target: "/reception",
     icon: ClipboardList,
-    description: "Patient intake, bilingual symptom selection, and token slip printing",
+    description: "Patient intake, symptom selection, and token slip printing",
   },
-  {
-    role: "nurse",
+  nurse: {
     label: "Triage Nurse Station",
-    staffName: "Sunita Bishnoi",
-    email: "sunita@triagelane.org",
-    target: "/nurse",
     icon: Activity,
     description: "3 live priority lanes, vital signs entry, and clinical overrides",
   },
-  {
-    role: "doctor",
+  doctor: {
     label: "OPD Doctor Bay",
-    staffName: "Dr. Arvind Gehlot",
-    email: "arvind@triagelane.org",
-    target: "/doctor",
     icon: Stethoscope,
     description: "Consultation bay, active queue calling, and patient discharge",
   },
-  {
-    role: "admin",
+  admin: {
     label: "Clinical Administrator",
-    staffName: "System Admin",
-    email: "admin@triagelane.org",
-    target: "/admin",
     icon: Shield,
     description: "Triage rules inspector, escalation thresholds, and audit trail",
   },
-];
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -53,6 +45,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [staffList, setStaffList] = useState<DatabaseStaff[]>([]);
+
+  // Fetch staff list dynamically from Supabase database
+  useEffect(() => {
+    async function fetchStaff() {
+      try {
+        const res = await fetch("/api/staff");
+        if (res.ok) {
+          const data: DatabaseStaff[] = await res.json();
+          setStaffList(data);
+        }
+      } catch (err) {
+        console.error("Failed to load staff list from database:", err);
+      }
+    }
+    fetchStaff();
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -183,51 +192,60 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Right Column: Hospital Staff Directory */}
+        {/* Right Column: Dynamic Staff Directory from Supabase Database */}
         <div className="lg:col-span-6">
           <div className="rounded-xl border border-hairline bg-paper/60 p-6 sm:p-8">
             <div className="mb-4">
               <h2 className="text-base font-bold text-ink">Hospital Station Directory</h2>
               <p className="text-xs text-muted">
-                Official staff accounts assigned to clinical units. Click any station to pre-fill its email.
+                Active staff accounts loaded dynamically from the hospital database. Click any station to select.
               </p>
             </div>
 
             <div className="grid gap-3">
-              {STAFF_STATIONS.map((station) => {
-                const Icon = station.icon;
-                const isSelected = email === station.email;
-                return (
-                  <button
-                    key={station.role}
-                    type="button"
-                    onClick={() => selectStation(station.email)}
-                    className={`group flex items-start gap-3.5 rounded-lg border p-3.5 text-left transition-all ${
-                      isSelected
-                        ? "border-sand bg-sand-soft/50 shadow-xs"
-                        : "border-hairline bg-white hover:border-sand hover:bg-sand-soft/30"
-                    }`}
-                  >
-                    <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md border border-hairline bg-sand-soft text-sand-dark group-hover:border-sand">
-                      <Icon className="size-4" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-semibold text-sm text-ink group-hover:text-sand-dark">
-                          {station.label}
-                        </span>
-                        <span className="rounded bg-sand/15 px-1.5 py-0.5 text-[0.7rem] font-medium text-[#7a4424]">
-                          {station.staffName}
-                        </span>
+              {staffList.length === 0 ? (
+                <div className="py-8 text-center text-xs text-muted">Loading staff directory from database...</div>
+              ) : (
+                staffList.map((staff) => {
+                  const meta = ROLE_METADATA[staff.role] || {
+                    label: staff.role,
+                    icon: Shield,
+                    description: "Hospital staff access",
+                  };
+                  const Icon = meta.icon;
+                  const isSelected = email === staff.email;
+                  return (
+                    <button
+                      key={staff.id}
+                      type="button"
+                      onClick={() => selectStation(staff.email)}
+                      className={`group flex items-start gap-3.5 rounded-lg border p-3.5 text-left transition-all ${
+                        isSelected
+                          ? "border-sand bg-sand-soft/50 shadow-xs"
+                          : "border-hairline bg-white hover:border-sand hover:bg-sand-soft/30"
+                      }`}
+                    >
+                      <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md border border-hairline bg-sand-soft text-sand-dark group-hover:border-sand">
+                        <Icon className="size-4" />
                       </div>
-                      <p className="text-xs text-muted mt-0.5">{station.description}</p>
-                      <p className="text-[0.75rem] text-ink/80 mt-1 font-mono font-medium">
-                        {station.email}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-semibold text-sm text-ink group-hover:text-sand-dark">
+                            {meta.label}
+                          </span>
+                          <span className="rounded bg-sand/15 px-1.5 py-0.5 text-[0.7rem] font-medium text-[#7a4424]">
+                            {staff.fullName.split(" (")[0]}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted mt-0.5">{meta.description}</p>
+                        <p className="text-[0.75rem] text-ink/80 mt-1 font-mono font-medium">
+                          {staff.email}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
