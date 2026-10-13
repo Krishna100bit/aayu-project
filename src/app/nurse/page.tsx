@@ -10,16 +10,8 @@ import {
   ArrowUp,
   CheckCircle,
   Clock,
-  HeartPulse,
-  LogOut,
-  PhoneCall,
-  Search,
   ShieldAlert,
-  SlidersHorizontal,
   Siren,
-  Stethoscope,
-  Thermometer,
-  UserCheck,
   X,
 } from "lucide-react";
 import departmentsData from "../../../data/departments.json";
@@ -40,7 +32,6 @@ const OVERRIDE_REASONS = [
 export default function NurseDashboardPage() {
   const visits = useQueueVisits();
   const [selectedDept, setSelectedDept] = useState("GEN_MED");
-  const [activeLaneFilter, setActiveLaneFilter] = useState<"ALL" | Level>("ALL");
 
   // Vitals entry modal
   const [vitalsModalVisit, setVitalsModalVisit] = useState<PatientVisit | null>(null);
@@ -56,7 +47,7 @@ export default function NurseDashboardPage() {
   // Override modal
   const [overrideModalVisit, setOverrideModalVisit] = useState<PatientVisit | null>(null);
   const [overrideLevel, setOverrideLevel] = useState<Level>("IMMEDIATE");
-  const [overrideReasonCode, setOverrideReasonCode] = useState(OVERRIDE_REASONS[0].code);
+  const [overrideReasonCode, setOverrideReasonCode] = useState(OVERRIDE_REASONS[0]!.code);
   const [overrideNote, setOverrideNote] = useState("");
 
   // Department visits
@@ -140,7 +131,7 @@ export default function NurseDashboardPage() {
   const handleOpenOverride = (visit: PatientVisit) => {
     setOverrideModalVisit(visit);
     setOverrideLevel(visit.level === "IMMEDIATE" ? "SOON" : "IMMEDIATE");
-    setOverrideReasonCode(OVERRIDE_REASONS[0].code);
+    setOverrideReasonCode(OVERRIDE_REASONS[0]!.code);
     setOverrideNote("");
   };
 
@@ -157,6 +148,7 @@ export default function NurseDashboardPage() {
     if (targetIndex < 0 || targetIndex >= lane.length) return;
     const current = lane[index];
     const target = lane[targetIndex];
+    if (!current || !target) return;
     queueStore.reorderWithinLane(selectedDept, current.level, current.id, target.id);
   };
 
@@ -482,7 +474,11 @@ export default function NurseDashboardPage() {
                 <label className="block text-xs font-medium text-ink">Consciousness (AVPU)</label>
                 <select
                   value={consciousness}
-                  onChange={(e) => setConsciousness(e.target.value as any)}
+                  onChange={(e) =>
+                    setConsciousness(
+                      e.target.value as "ALERT" | "VOICE" | "PAIN" | "UNRESPONSIVE",
+                    )
+                  }
                   className="mt-1 w-full rounded-md border border-hairline bg-paper px-3 py-1.5 text-xs text-ink focus:border-sandstone focus:outline-hidden"
                 >
                   <option value="ALERT">Alert (A - पूर्ण सचेत)</option>

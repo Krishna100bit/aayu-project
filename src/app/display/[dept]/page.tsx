@@ -1,7 +1,6 @@
 "use client";
 
 import { use, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import {
   Bell,
   Clock,

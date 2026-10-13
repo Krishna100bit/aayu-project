@@ -94,6 +94,7 @@ export default function ReceptionPage() {
       sex,
       pregnant: sex === "F" ? pregnant : false,
       tags: selectedTagIds,
+      conditions: [],
       free_text: freeText || undefined,
       vitals: {},
     });

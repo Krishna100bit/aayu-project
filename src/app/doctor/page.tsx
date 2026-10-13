@@ -3,15 +3,8 @@
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Activity,
-  AlertOctagon,
-  ArrowRight,
-  CheckCircle2,
   Clock,
-  HeartPulse,
-  PhoneCall,
   Stethoscope,
-  User,
   Users,
 } from "lucide-react";
 import departmentsData from "../../../data/departments.json";
@@ -258,10 +251,10 @@ export default function DoctorDashboardPage() {
                 <p className="mt-1 text-xs">
                   Call the next waiting patient from the queue on the right.
                 </p>
-                {waitingPatients.length > 0 && (
+                {waitingPatients.length > 0 && waitingPatients[0] && (
                   <button
                     type="button"
-                    onClick={() => handleCallNext(waitingPatients[0])}
+                    onClick={() => handleCallNext(waitingPatients[0]!)}
                     className="mt-4 rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-paper hover:bg-ink/90"
                   >
                     Call Next ({waitingPatients[0].tokenLabel})
@@ -288,7 +281,7 @@ export default function DoctorDashboardPage() {
                   Queue is clear! No patients waiting.
                 </div>
               ) : (
-                waitingPatients.map((v, idx) => (
+                waitingPatients.map((v) => (
                   <div
                     key={v.id}
                     className={cn(

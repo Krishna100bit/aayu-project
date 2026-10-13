@@ -335,6 +335,7 @@ export const queueStore = {
 
     const copy = [...laneVisits];
     const [item] = copy.splice(fromIndex, 1);
+    if (!item) return;
     copy.splice(toIndex, 0, item);
 
     // Reassign sort keys
