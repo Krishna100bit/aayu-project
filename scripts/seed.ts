@@ -56,17 +56,20 @@ async function seed() {
 
   // 2. Seed rooms (2 rooms per department)
   console.log("2. Seeding rooms...");
+  const { data: existingRooms } = await supabase.from("rooms").select("department_id, label");
+  const existingSet = new Set((existingRooms || []).map((r) => `${r.department_id}:${r.label}`));
+
   for (const dept of departmentsData.departments) {
     if (dept.id === "EMERG") continue;
-    for (let r = 1; r <= 2; r++) {
-      await supabase.from("rooms").upsert(
-        {
+    for (let r = 1; r <= 3; r++) {
+      const key = `${dept.id}:Room ${r}`;
+      if (!existingSet.has(key)) {
+        await supabase.from("rooms").insert({
           department_id: dept.id,
           label: `Room ${r}`,
           active: true,
-        },
-        { onConflict: "department_id,label" },
-      );
+        });
+      }
     }
   }
   console.log("✓ Rooms seeded.");
