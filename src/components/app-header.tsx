@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Wordmark } from "./wordmark";
-import { LanguageToggle } from "./language-toggle";
 import { ContrastToggle } from "./contrast-toggle";
 
 export async function AppHeader() {
@@ -16,7 +15,6 @@ export async function AppHeader() {
         <span className="hidden truncate text-sm text-muted lg:block">{t("hospital")}</span>
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <ContrastToggle />
-          <LanguageToggle />
         </div>
       </div>
     </header>

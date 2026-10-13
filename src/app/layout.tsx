@@ -3,8 +3,6 @@ import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Devanagari } from "next/fon
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { AppHeader } from "@/components/app-header";
-import { AppFooter } from "@/components/app-footer";
-import { DemoBanner } from "@/components/demo-banner";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -53,10 +51,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <DemoBanner />
           <AppHeader />
           <main className="flex-1">{children}</main>
-          <AppFooter />
         </NextIntlClientProvider>
       </body>
     </html>

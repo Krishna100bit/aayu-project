@@ -10,15 +10,24 @@ const emptyToUndefined = (v: unknown) => (typeof v === "string" && v.trim() === 
 const optionalStr = z.preprocess(emptyToUndefined, z.string().optional());
 const optionalUrl = z.preprocess(emptyToUndefined, z.string().url().optional());
 
+const resolvedDefaultAppUrl =
+  (process.env.NEXT_PUBLIC_APP_URL && process.env.NEXT_PUBLIC_APP_URL.trim() !== "" ? process.env.NEXT_PUBLIC_APP_URL : undefined) ||
+  (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : undefined) ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
+  "http://localhost:3000";
+
 const publicSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: optionalUrl,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: optionalStr,
-  NEXT_PUBLIC_APP_URL: z.preprocess(emptyToUndefined, z.string().url().default("http://localhost:3000")),
+  NEXT_PUBLIC_APP_URL: z.preprocess(emptyToUndefined, z.string().url().default(resolvedDefaultAppUrl)),
 });
 
 const serverSchema = publicSchema.extend({
   SUPABASE_SERVICE_ROLE_KEY: optionalStr,
-  STATUS_PAGE_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().default("http://localhost:3000/s")),
+  STATUS_PAGE_BASE_URL: z.preprocess(
+    emptyToUndefined,
+    z.string().url().default(`${resolvedDefaultAppUrl}/s`),
+  ),
   HOSPITAL_NAME: z.preprocess(emptyToUndefined, z.string().default("Demo District Hospital, Jodhpur")),
   N8N_WEBHOOK_URL: optionalUrl,
   N8N_SHARED_SECRET: optionalStr,
