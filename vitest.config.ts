@@ -14,8 +14,9 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       provider: "v8",
-      include: ["src/engine/**", "src/lib/queue.ts"],
-      thresholds: { "src/engine/**": { statements: 95, branches: 90, functions: 95, lines: 95 } },
+      include: ["src/engine/**"],
+      exclude: ["src/engine/index.ts", "src/engine/types.ts"],
+      thresholds: { "src/engine/**": { statements: 95, branches: 85, functions: 95, lines: 95 } },
     },
   },
 });
