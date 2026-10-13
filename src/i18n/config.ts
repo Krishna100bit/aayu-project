@@ -1,6 +1,6 @@
-export const locales = ["hi", "en"] as const;
+export const locales = ["en", "hi"] as const;
 export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = "hi";
+export const defaultLocale: Locale = "en";
 export const LOCALE_COOKIE = "tl_locale";
 
 export function isLocale(v: unknown): v is Locale {
