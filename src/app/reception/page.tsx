@@ -146,14 +146,14 @@ export default function ReceptionPage() {
   };
 
   // Submit registration
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || ageYears === "") {
-      alert("कृपया मरीज़ का नाम और उम्र दर्ज करें (Please enter patient name and age)");
+      alert("Please enter patient name and age");
       return;
     }
 
-    const newVisit = queueStore.addVisit({
+    const newVisit = await queueStore.addVisit({
       fullName: fullName.trim(),
       ageYears: Number(ageYears),
       sex,
