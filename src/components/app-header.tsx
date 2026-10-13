@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Wordmark } from "./wordmark";
 import { ContrastToggle } from "./contrast-toggle";
+import { AuthHeaderButton } from "./auth-header-button";
 
 export async function AppHeader() {
   const t = await getTranslations("app");
@@ -15,6 +16,7 @@ export async function AppHeader() {
         <span className="hidden truncate text-sm text-muted lg:block">{t("hospital")}</span>
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <ContrastToggle />
+          <AuthHeaderButton />
         </div>
       </div>
     </header>
