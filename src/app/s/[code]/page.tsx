@@ -3,21 +3,12 @@
 import { use, useMemo } from "react";
 import Link from "next/link";
 import {
-  Activity,
   AlertOctagon,
-  ArrowRight,
-  Bell,
-  Clock,
-  HeartPulse,
-  Info,
   RefreshCw,
   ShieldCheck,
-  Stethoscope,
-  Users,
 } from "lucide-react";
 import { useQueueVisits } from "@/lib/queue-store";
 import { LevelBadge } from "@/components/level-badge";
-import { cn } from "@/lib/utils";
 
 export default function PatientStatusPage({
   params,

@@ -15,7 +15,6 @@ import {
   X,
 } from "lucide-react";
 import departmentsData from "../../../data/departments.json";
-import { LevelBadge } from "@/components/level-badge";
 import { queueStore, useQueueVisits, type PatientVisit } from "@/lib/queue-store";
 import type { Level } from "@/engine/levels";
 import { cn } from "@/lib/utils";
